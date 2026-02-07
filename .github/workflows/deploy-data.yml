@@ -45,6 +45,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
@@ -77,6 +80,8 @@ jobs:
           ls -R data/ || true
           echo "Checking for apps.min.json: $(test -f data/apps.min.json && echo 'Found' || echo 'Not Found')"
           echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
+          echo "Git status:"
+          git status
 
       - name: Auto-commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
