@@ -79,11 +79,11 @@ jobs:
           echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
 
       - name: Auto-commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: auto-commit processed data from distillation"
-          commit_user_name: "GitHub Actions Bot"
-          commit_user_email: "actions@github.com"
-          commit_author: "GitHub Actions Bot <actions@github.com>"
-          file_pattern: "data/**/*.json" # Commit only the relevant data files
-          add_options: '-A' # Stage all modified and new files
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: "chore: auto-commit processed data from distillation"
+                commit_user_name: "GitHub Actions Bot"
+                commit_user_email: "actions@github.com"
+                commit_author: "GitHub Actions Bot <actions@github.com>"
+                file_pattern: "data/**/*.json" # Commit only the relevant data files
+                add_options: "-A" # Stage all modified and new files
