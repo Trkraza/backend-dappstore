@@ -83,6 +83,10 @@ jobs:
           echo "Git status:"
           git status
 
+      - name: Stage generated files
+        run: |
+          git add data/apps.min.json data/slugs.json data/apps/**/meta.json || true
+
       - name: Auto-commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -90,5 +94,5 @@ jobs:
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions Bot <actions@github.com>"
-          file_pattern: "data/**/*.json"
-          add_options: "-A"
+          skip_fetch: true
+          skip_checkout: true
