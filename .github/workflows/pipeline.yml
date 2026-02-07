@@ -34,7 +34,8 @@ jobs:
 
       - name: Start server in background
         run: |
-  pnpm dev &
+          echo "Starting server..."
+          pnpm dev &
 
       
       - name: Wait for server to be ready
