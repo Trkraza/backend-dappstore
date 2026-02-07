@@ -1,0 +1,62 @@
+name: DApp Store Backend Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
+jobs:
+  process-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Start server in background
+        run: pnpm dev &
+      
+      - name: Wait for server to be ready
+        run: |
+          echo "Waiting for server to start..."
+          sleep 5
+          curl -f http://localhost:3000/ || (sleep 10 && curl -f http://localhost:3000/)
+
+      - name: Step 1 - Upload assets to Cloudinary
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          curl -X POST http://localhost:3000/api/upload 
+            -H "x-api-key: $API_KEY" 
+            --fail
+      
+      - name: Step 2 - Distill JSON collections
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          curl -X POST http://localhost:3000/api/distill 
+            -H "x-api-key: $API_KEY" 
+            --fail
+
+      - name: Auto-commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: ✨ auto-commit processed data"
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
+          commit_author: "GitHub Actions Bot <actions@github.com>"
