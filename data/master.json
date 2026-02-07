@@ -34,5 +34,23 @@
     "logo": "assets/temp-logos/wallet.jpg",
     "category": "wallets",
     "chain": "ethereum"
+  },
+  {
+    "slug": "metamask",
+    "name": "MetaMask",
+    "description": "A crypto wallet and gateway to blockchain apps.",
+    "url": "https://metamask.io/",
+    "logo": "assets/temp-logos/metamask.png",
+    "category": "wallets",
+    "chain": "ethereum"
+  },
+  {
+    "slug": "immutable-x",
+    "name": "Immutable X",
+    "description": "A Layer 2 scaling solution for NFTs on Ethereum.",
+    "url": "https://www.immutable.com/",
+    "logo": "assets/temp-logos/immuatable.png",
+    "category": "nft",
+    "chain": "ethereum"
   }
 ]
