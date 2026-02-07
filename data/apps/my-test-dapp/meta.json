@@ -1,7 +1,7 @@
 {
   "slug": "my-test-dapp",
   "name": "My Test DApp",
-  "logoUrl": "./vercel.svg",
+  "logoUrl": "/vercel.svg",
   "category": "utility",
   "chains": ["ethereum", "polygon"],
   "content": {
