@@ -81,3 +81,5 @@ jobs:
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions Bot <actions@github.com>"
           file_pattern: "data/**/*.json" # Commit only the relevant data files
+          add_options: '-A' # Stage all modified and new files
+
