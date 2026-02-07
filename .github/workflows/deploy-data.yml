@@ -37,102 +37,53 @@ jobs:
       - name: Validate DApp Data
         run: pnpm ts-node src/scripts/validate.ts # Run the validation script
 
-    deploy-data:
+  deploy-data:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write # Grant write permissions for auto-commit
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      runs-on: ubuntu-latest
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+          cache-dependency-path: pnpm-lock.yaml
 
-      permissions:
+      - name: Install dependencies
+        run: pnpm install
 
-        contents: write # Grant write permissions for auto-commit
+      - name: Build project (for script execution)
+        run: pnpm build
 
-      steps:
+      - name: Run Distillation and Asset Transformation
+        env:
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        run: pnpm ts-node src/scripts/distill.ts # Run the distillation script
 
-        - name: Checkout code
+      - name: Debug: List generated files
+        run: |
+          echo "Listing contents of data/ directory:"
+          ls -R data/ || true # List recursively, || true to prevent job failure if dir is empty
+          echo "Checking for apps.min.json: $(test -f data/apps.min.json && echo 'Found' || echo 'Not Found')"
+          echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
 
-          uses: actions/checkout@v4
-
-  
-
-        - name: Setup PNPM
-
-          uses: pnpm/action-setup@v4
-
-          with:
-
-            version: 8
-
-  
-
-        - name: Setup Node.js
-
-          uses: actions/setup-node@v4
-
-          with:
-
-            node-version: "20"
-
-            cache: "pnpm"
-
-            cache-dependency-path: pnpm-lock.yaml
-
-  
-
-        - name: Install dependencies
-
-          run: pnpm install
-
-  
-
-        - name: Build project (for script execution)
-
-          run: pnpm build
-
-  
-
-        - name: Run Distillation and Asset Transformation
-
-          env:
-
-            CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
-
-            CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-
-            CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-
-          run: pnpm ts-node src/scripts/distill.ts # Run the distillation script
-
-  
-
-        - name: Debug: List generated files
-
-          run: |
-
-            echo "Listing contents of data/ directory:"
-
-            ls -R data/ || true # List recursively, || true to prevent job failure if dir is empty
-
-            echo "Checking for apps.min.json: $(test -f data/apps.min.json && echo 'Found' || echo 'Not Found')"
-
-            echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
-
-  
-
-        - name: Auto-commit changes
-
-          uses: stefanzweifel/git-auto-commit-action@v5
-
-          with:
-
-            commit_message: "chore: auto-commit processed data from distillation"
-
-            commit_user_name: "GitHub Actions Bot"
-
-            commit_user_email: "actions@github.com"
-
-            commit_author: "GitHub Actions Bot <actions@github.com>"
-
-            file_pattern: "data/**/*.json" # Commit only the relevant data files
-
-            add_options: '-A' # Stage all modified and new files
+      - name: Auto-commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-commit processed data from distillation"
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
+          commit_author: "GitHub Actions Bot <actions@github.com>"
+          file_pattern: "data/**/*.json" # Commit only the relevant data files
+          add_options: '-A' # Stage all modified and new files
