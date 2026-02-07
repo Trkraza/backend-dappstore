@@ -34,6 +34,11 @@ jobs:
 
       # Replaced server start and wait steps with user's requested logic
       - name: Start Next.js Server
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: |
           echo "Starting Next.js server on port 3000..."
           nohup pnpm start -p 3000 > server.log 2>&1 &
