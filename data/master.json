@@ -1,20 +1,20 @@
 [
   {
-    "slug": "my-cool-dapp",
-    "name": "My Cool DApp",
-    "description": "The coolest DApp ever.",
-    "url": "https://example.com",
-    "logo": "https://res.cloudinary.com/dksmzzvgs/image/upload/v1770454264/dapp-store-logos/my-cool-dapp.jpg",
-    "category": "wallets",
+    "slug": "uniswap",
+    "name": "Uniswap",
+    "description": "Uniswap is a leading decentralized crypto trading protocol, providing a platform for swapping, earning, and building.",
+    "url": "https://uniswap.org/",
+    "logo": "assets/temp-logos/uniswap.png",
+    "category": "dex",
     "chain": "ethereum"
   },
   {
-    "slug": "another-dapp",
-    "name": "Another DApp",
-    "description": "Another great DApp.",
-    "url": "https://anotherexample.com",
-    "logo": "https://res.cloudinary.com/demo/image/upload/v1621596434/sample.jpg",
-    "category": "gaming",
+    "slug": "opensea",
+    "name": "OpenSea",
+    "description": "OpenSea is the world's first and largest web3 marketplace for NFTs and crypto collectibles.",
+    "url": "https://opensea.io/",
+    "logo": "assets/temp-logos/opensea.png",
+    "category": "nft",
     "chain": "polygon"
   }
 ]
