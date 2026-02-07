@@ -38,10 +38,14 @@ jobs:
           curl -f http://localhost:3000/ || (sleep 10 && curl -f http://localhost:3000/)
 
       - name: Step 1 - Upload assets to Cloudinary
-        run: curl -X POST -H "x-api-key: ${{ secrets.API_KEY }}" --fail http://localhost:3000/api/upload
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: curl -X POST -H "x-api-key: $API_KEY" --fail http://localhost:3000/api/upload
       
       - name: Step 2 - Distill JSON collections
-        run: curl -X POST -H "x-api-key: ${{ secrets.API_KEY }}" --fail http://localhost:3000/api/distill
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: curl -X POST -H "x-api-key: $API_KEY" --fail http://localhost:3000/api/distill
 
       - name: Auto-commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
