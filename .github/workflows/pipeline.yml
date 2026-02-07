@@ -31,7 +31,7 @@ jobs:
       - name: Start server in background
         run: |
           echo "Starting server..."
-          pnpm run build &
+          pnpm run build & pnpm run start
 
       - name: Wait for server to be ready
         run: |
