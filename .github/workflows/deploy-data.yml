@@ -40,6 +40,9 @@ jobs:
   deploy-data:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write # Grant write permissions for auto-commit
+
 
     steps:
       - name: Checkout code
