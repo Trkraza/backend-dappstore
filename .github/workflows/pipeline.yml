@@ -33,15 +33,15 @@ jobs:
         run: pnpm build
 
       # Replaced server start and wait steps with user's requested logic
-      - name: Start Next.js Server
+      - name: Start Fastify Server
         env:
           API_KEY: ${{ secrets.API_KEY }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: |
-          echo "Starting Next.js server on port 3000..."
-          nohup pnpm start -p 3000 > server.log 2>&1 &
+          echo "Starting Fastify server on port 3000..."
+          nohup node dist/server.js > server.log 2>&1 &
           echo $! > server.pid
 
       - name: Wait for server to be ready

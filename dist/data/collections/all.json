@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "my-cool-dapp",
+        "name": "My Cool DApp",
+        "description": "The coolest DApp ever.",
+        "url": "https://example.com",
+        "logo": "https://res.cloudinary.com/dksmzzvgs/image/upload/v1770454264/dapp-store-logos/my-cool-dapp.jpg",
+        "category": "wallets",
+        "chain": "ethereum"
+    },
+    {
+        "slug": "another-dapp",
+        "name": "Another DApp",
+        "description": "Another great DApp.",
+        "url": "https://anotherexample.com",
+        "logo": "https://res.cloudinary.com/demo/image/upload/v1621596434/sample.jpg",
+        "category": "gaming",
+        "chain": "polygon"
+    }
+]

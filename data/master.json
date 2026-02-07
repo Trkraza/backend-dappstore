@@ -2,19 +2,37 @@
   {
     "slug": "uniswap",
     "name": "Uniswap",
-    "description": "Uniswap is a leading decentralized crypto trading protocol, providing a platform for swapping, earning, and building.",
-    "url": "https://uniswap.org/",
+    "description": "A decentralized exchange protocol.",
+    "url": "https://app.uniswap.org/",
     "logo": "assets/temp-logos/uniswap.png",
-    "category": "dex",
+    "category": "defi",
     "chain": "ethereum"
   },
   {
     "slug": "opensea",
     "name": "OpenSea",
-    "description": "OpenSea is the world's first and largest web3 marketplace for NFTs and crypto collectibles.",
+    "description": "The world's first and largest web3 marketplace for NFTs.",
     "url": "https://opensea.io/",
     "logo": "assets/temp-logos/opensea.png",
-    "category": "nft",
+    "category": "marketplace",
+    "chain": "ethereum"
+  },
+  {
+    "slug": "new-cool-game",
+    "name": "New Cool Game",
+    "description": "A brand new game on Polygon.",
+    "url": "https://game.example.com/",
+    "logo": "assets/temp-logos/dapp.jpg",
+    "category": "gaming",
     "chain": "polygon"
+  },
+  {
+    "slug": "awesome-wallet",
+    "name": "Awesome Wallet",
+    "description": "Your secure crypto wallet for all chains.",
+    "url": "https://wallet.example.com/",
+    "logo": "assets/temp-logos/wallet.jpg",
+    "category": "wallets",
+    "chain": "ethereum"
   }
 ]

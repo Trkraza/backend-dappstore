@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "uniswap",
+        "name": "Uniswap",
+        "description": "Uniswap is a leading decentralized crypto trading protocol, providing a platform for swapping, earning, and building.",
+        "url": "https://uniswap.org/",
+        "logo": "assets/temp-logos/uniswap.png",
+        "category": "dex",
+        "chain": "ethereum"
+    },
+    {
+        "slug": "opensea",
+        "name": "OpenSea",
+        "description": "OpenSea is the world's first and largest web3 marketplace for NFTs and crypto collectibles.",
+        "url": "https://opensea.io/",
+        "logo": "assets/temp-logos/opensea.png",
+        "category": "nft",
+        "chain": "polygon"
+    }
+]
