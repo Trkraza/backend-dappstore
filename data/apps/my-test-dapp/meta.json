@@ -5,7 +5,7 @@
   "category": "utility",
   "chains": ["ethereum", "polygon"],
   "content": {
-    "short": "A simple DApp to confirm the data pipeline works end-to-end.",
+    "short": "A dummy DApp to confirm the data pipeline works end-to-end.",
     "description": "This is a detailed description of our first test DApp, designed to validate the entire Industrial Data Factory process, from local data to Cloudinary and minified JSON outputs.",
     "meta": "test dapp, data factory, pipeline verification",
     "pageTitle": "My Test DApp - Pipeline Confirmed"

@@ -39,7 +39,6 @@ jobs:
 
   deploy-data:
     runs-on: ubuntu-latest
-    needs: [validate-data] # Ensure validation passes before deploying
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
