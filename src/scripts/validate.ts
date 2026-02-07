@@ -69,12 +69,12 @@ async function validateDAppMeta(): Promise<void> {
   }
 
   if (hasErrors) {
-    console.error('
-DApp meta.json validation FAILED.');
+    console.error(`
+DApp meta.json validation FAILED.`);
     process.exit(1);
   } else {
-    console.log('
-DApp meta.json validation PASSED successfully.');
+    console.log(`
+DApp meta.json validation PASSED successfully.`);
     process.exit(0);
   }
 }
