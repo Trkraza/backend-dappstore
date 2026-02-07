@@ -43,7 +43,6 @@ jobs:
     permissions:
       contents: write # Grant write permissions for auto-commit
 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -89,4 +88,3 @@ jobs:
           commit_author: "GitHub Actions Bot <actions@github.com>"
           file_pattern: "data/**/*.json" # Commit only the relevant data files
           add_options: '-A' # Stage all modified and new files
-
