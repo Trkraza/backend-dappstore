@@ -4,11 +4,16 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows manual triggering from the Actions tab
+  workflow_dispatch:
 
 jobs:
   process-and-commit:
     runs-on: ubuntu-latest
+    
+    # Set the default working directory for all run steps in this job
+    defaults:
+      run:
+        working-directory: ./backend-dappstore
 
     steps:
       - name: Checkout code
@@ -24,6 +29,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
+          cache-dependency-path: backend-dappstore/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install
@@ -32,20 +38,22 @@ jobs:
         run: pnpm dev &
       
       - name: Wait for server to be ready
+        # This step runs in the repo root, so we don't use the default working-directory
+        working-directory: ./
         run: |
           echo "Waiting for server to start..."
-          sleep 5
-          curl -f http://localhost:3000/ || (sleep 10 && curl -f http://localhost:3000/)
+          sleep 15
+          curl -f http://localhost:3000/
 
       - name: Step 1 - Upload assets to Cloudinary
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: curl -X POST -H "x-api-key: $API_KEY" --fail http://localhost:3000/api/upload
+        run: curl -X POST --fail --retry 3 -H "x-api-key: $API_KEY" http://localhost:3000/api/upload
       
       - name: Step 2 - Distill JSON collections
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: curl -X POST -H "x-api-key: $API_KEY" --fail http://localhost:3000/api/distill
+        run: curl -X POST --fail --retry 3 -H "x-api-key: $API_KEY" http://localhost:3000/api/distill
 
       - name: Auto-commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
