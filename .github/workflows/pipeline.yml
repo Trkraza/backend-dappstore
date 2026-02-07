@@ -9,10 +9,6 @@ jobs:
   process-and-commit:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./backend-dappstore
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
