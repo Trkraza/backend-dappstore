@@ -73,6 +73,13 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: pnpm ts-node src/scripts/distill.ts # Run the distillation script
 
+      - name: Debug: List generated files
+        run: |
+          echo "Listing contents of data/ directory:"
+          ls -R data/ || true # List recursively, || true to prevent job failure if dir is empty
+          echo "Checking for apps.min.json: $(test -f data/apps.min.json && echo 'Found' || echo 'Not Found')"
+          echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
+
       - name: Auto-commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
