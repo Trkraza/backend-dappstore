@@ -33,7 +33,9 @@ jobs:
         run: pnpm install
 
       - name: Start server in background
-        run: pnpm dev &
+        run: |
+  pnpm dev &
+
       
       - name: Wait for server to be ready
         run: |
