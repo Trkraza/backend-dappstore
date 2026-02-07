@@ -35,13 +35,13 @@ jobs:
         run: pnpm build
 
       - name: Validate DApp Data
-        run: pnpm ts-node src/scripts/validate.ts # Run the validation script
+        run: pnpm ts-node src/scripts/validate.ts
 
   deploy-data:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
-      contents: write # Grant write permissions for auto-commit
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,12 +69,12 @@ jobs:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-        run: pnpm ts-node src/scripts/distill.ts # Run the distillation script
+        run: pnpm ts-node src/scripts/distill.ts
 
-      - name: Debug: List generated files
+      - name: Debug - List generated files
         run: |
           echo "Listing contents of data/ directory:"
-          ls -R data/ || true # List recursively, || true to prevent job failure if dir is empty
+          ls -R data/ || true
           echo "Checking for apps.min.json: $(test -f data/apps.min.json && echo 'Found' || echo 'Not Found')"
           echo "Checking for slugs.json: $(test -f data/slugs.json && echo 'Found' || echo 'Not Found')"
 
@@ -86,4 +86,4 @@ jobs:
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions Bot <actions@github.com>"
           file_pattern: "data/**/*.json"
-          add_options: "-A" 
+          add_options: "-A"
