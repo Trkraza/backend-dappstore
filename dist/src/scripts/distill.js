@@ -64,9 +64,25 @@ async function distillDAppData() {
                 continue; // Skip this DApp
             }
             let finalLogoUrl = parsedData.logoUrl;
-            const isLocalLogo = !finalLogoUrl.startsWith('http') && !finalLogoUrl.startsWith('https');
-            if (isLocalLogo) {
-                const localImagePath = path_1.default.join(path_1.default.dirname(metaJsonPath), finalLogoUrl);
+            const isHttpUrl = finalLogoUrl.startsWith('http://') || finalLogoUrl.startsWith('https://');
+            let localImagePath = '';
+            if (!isHttpUrl) {
+                if (finalLogoUrl.startsWith('./')) {
+                    // Path relative to meta.json file
+                    localImagePath = path_1.default.join(path_1.default.dirname(metaJsonPath), finalLogoUrl);
+                }
+                else if (finalLogoUrl.startsWith('/')) {
+                    // Path relative to project root's 'public' directory (e.g., /vercel.svg)
+                    localImagePath = path_1.default.join(process.cwd(), 'public', finalLogoUrl.substring(1));
+                }
+                else if (finalLogoUrl.startsWith('public/')) {
+                    // Path explicitly starting with 'public/' (e.g., public/vercel.svg)
+                    localImagePath = path_1.default.join(process.cwd(), finalLogoUrl);
+                }
+                else {
+                    // Default to relative to meta.json if no clear indicator
+                    localImagePath = path_1.default.join(path_1.default.dirname(metaJsonPath), finalLogoUrl);
+                }
                 if (await fs_extra_1.default.pathExists(localImagePath)) {
                     console.log(`Uploading local logo for ${parsedData.name} from ${localImagePath}...`);
                     try {

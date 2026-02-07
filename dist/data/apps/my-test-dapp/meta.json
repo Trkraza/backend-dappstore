@@ -1,0 +1,21 @@
+{
+    "slug": "my-test-dapp",
+    "name": "My Test DApp",
+    "logoUrl": "https://res.cloudinary.com/dksmzzvgs/image/upload/v1770490001/dapp_logos/my-test-dapp.png",
+    "category": "utility",
+    "chains": [
+        "ethereum",
+        "polygon"
+    ],
+    "content": {
+        "short": "A dummy new main DApp to confirm the data pipeline works end-to-end.",
+        "description": "This is a detailed description of our first test DApp, designed to validate the entire Industrial Data Factory process, from local data to Cloudinary and minified JSON outputs.",
+        "meta": "test dapp, data factory, pipeline verification",
+        "pageTitle": "My Test DApp - Pipeline Confirmed"
+    },
+    "links": {
+        "website": "https://www.example.com/my-test-dapp",
+        "twitter": "https://twitter.com/mytestdapp"
+    },
+    "relations": {}
+}
