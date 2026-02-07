@@ -4,9 +4,7 @@ import Fastify, { FastifyInstance } from 'fastify';
 
 import sensible from '@fastify/sensible';
 
-import uploadRoutes from './routes/upload';
-
-import distillRoutes from './routes/distill';
+import distillRoutes from './routes/distill'; // Import the new distill routes
 
 
 
@@ -26,15 +24,17 @@ export function build(): FastifyInstance {
 
   // Register API routes
 
-  fastify.register(uploadRoutes);
+  fastify.register(distillRoutes); // Register the new distill route
 
-  fastify.register(distillRoutes);
+
+
+
 
 
 
   fastify.get('/', async (request, reply) => {
 
-    return { message: 'Fastify Backend API is running!', api_endpoints: ['/api/upload', '/api/distill'] };
+    return { message: 'Fastify Backend API is running!' };
 
   });
 
@@ -50,22 +50,50 @@ if (require.main === module) {
 
   const fastify = build();
 
-  const start = async () => {
+    const start = async () => {
 
-    try {
+      try {
 
-      await fastify.listen({ port: 3000 });
+              const address = fastify.server.address();
 
-    } catch (err) {
+              const port = typeof address === 'object' && address !== null ? address.port : 'unknown';
 
-      fastify.log.error(err);
+              console.log(`Server listening on port ${port}`);
 
-      process.exit(1);
+  
 
-    }
+        // Graceful shutdown
 
-  };
+        const signals = ['SIGTERM', 'SIGINT'];
 
-  start();
+        for (const signal of signals) {
 
-}
+          process.on(signal, async () => {
+
+            console.log(`Received ${signal}. Shutting down server...`);
+
+            await fastify.close();
+
+            console.log('Server shut down gracefully.');
+
+            process.exit(0);
+
+          });
+
+        }
+
+  
+
+      } catch (err) {
+
+        fastify.log.error(err);
+
+        process.exit(1);
+
+      }
+
+    };
+
+    start();
+
+  }
